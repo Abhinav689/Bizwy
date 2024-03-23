@@ -1,0 +1,61 @@
+.carts{
+    padding: 1rem;
+    margin-top: 1%;
+    margin-left: 55rem;
+    font-size: 1.2rem;
+    border-radius: 1rem;
+    
+}
+.carts:hover{
+    background-color: orange;
+}
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+   
+  }
+  
+  .slider-button {
+    background-color: #ffffff;
+    border: 0.5px solid #000000;
+    padding: 8px 16px;
+    margin: 0 10px;
+    cursor: pointer;
+    margin-top: 10rem;
+  }
+  
+  .slider-image {
+    width: 350px; /* Adjust the width as needed */
+    height: 350px; /* Adjust the height as needed */
+    object-fit: cover; /* Ensure images fill the specified dimensions */
+    margin-top: 10rem;
+  }
+
+.para{
+  
+    margin-bottom: 1rem;
+   padding-left: 13rem;
+}
+.buttons-container{
+
+    margin-left: 50rem;
+    font-size: 1.25rem;
+    border-radius: 25%;
+}
+.cartss span{
+  margin-left: 50%;
+}
+.cartss {
+  position: fixed;
+  top: 7rem;
+  right: 11rem;
+ 
+}
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}

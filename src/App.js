@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { LandingPage } from "./Components/LandingPage/LandingPage";
+import "./App.css";
+import { Food_Main } from "./Components/RestaurantPage/Food_Main";
+import { Food_Detail } from "./Components/RestaurantPage/Food_Detail";
+import  Food_Detail2  from "./Components/RestaurantPage/Food_Detail2"
+import { PaymentDetails } from "./Components/CheckoutPage/PaymentDetails";
+import {ThankYou} from "./Components/Thankyou/Thankyou";
 function App() {
+  if (!localStorage.getItem("Cart")) {
+    localStorage.setItem("Cart", JSON.stringify([]))
+  }
+  if (!localStorage.getItem("user_details")) {
+    localStorage.setItem("user_details", JSON.stringify({"name": "", "email": "", "number": ""}))
+  }
+  if (!localStorage.getItem("verificationId")) {
+    localStorage.setItem("verificationId", JSON.stringify({"verificationId":""}))
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/restaurants" element={<Food_Main />} />
+        <Route path="/:food/:id" element={<Food_Detail />} />
+        <Route path="/:food/:id/:food" element={<Food_Detail2 />} />
+        <Route path="/payment" element={<PaymentDetails />} />
+        <Route path="/thankyou" element={<ThankYou />} />
+      </Routes>
+    </>
   );
 }
 
