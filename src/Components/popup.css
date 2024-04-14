@@ -1,0 +1,21 @@
+.icons:hover{
+color: white;
+}
+.popup_text {
+    margin-top: -3.5rem;
+    margin-left: -0.5rem;
+    -webkit-font-smoothing: antialiased;
+    font-family: Basis_Grotesque_Pro;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px
+
+}
+.popup {
+    -webkit-font-smoothing: antialiased;
+    font-family: Basis_Grotesque_Pro;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 1.5rem;
+  
+}

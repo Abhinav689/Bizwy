@@ -9,11 +9,9 @@ function Footer1() {
               <div className="div1_list_p1">About Us</div>
               <div className="div1_list_p1">Team</div>
               <div className="div1_list_p1">Careers</div>
-              <div className="div1_list_p1">Swiggy Blog</div>
+              <div className="div1_list_p1">BizWy Blog</div>
               <div className="div1_list_p1">Bug Bounty</div>
-              <div className="div1_list_p1">Swiggy One</div>
-              <div className="div1_list_p1">Swiggy Corporate</div>
-              <div className="div1_list_p1">Swiggy Instamart</div>
+            
           </div>
             </div>
             <div className="div2">

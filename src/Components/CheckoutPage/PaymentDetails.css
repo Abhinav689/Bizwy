@@ -37,17 +37,17 @@ width: 90px;
     font-weight: 600;
     margin-left: 90px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    border: 4px dashed #fc8019;
-    color: #fc8019;
+    border: 4px dashed #0473c4;
+    color: black;
     background-color: rgba(211, 211, 211, 0.292);
     border-radius: 4px;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
 }
 .applynow:hover{
-    border: 4px dashed #fc8019;
+    border: 4px dashed #fbcb1c;
     color: whitesmoke;
-    background-color: #fc8019;
+    background-color:#fbcb1c;
 }
 .billdetails{
     font-size: small;
@@ -73,7 +73,7 @@ width: 90px;
 
 }
 .amount{
-    color: #60b246;
+    color: #0473c4;
     font-weight: 500;
 }
 .coupon_img{
@@ -89,4 +89,8 @@ width: 90px;
     object-fit: contain;
     border-radius: 5px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.button_save{
+
+    background-color: #0473c4;
 }

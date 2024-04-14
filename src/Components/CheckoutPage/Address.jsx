@@ -5,9 +5,10 @@ import Button from "@mui/material/Button";
 import "./Address.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useNavigate } from "react-router-dom";
-import Logo from "../Assets/swiggy.svg";
+import Logo from "../Assets/logo.png";
+import Logo1 from '../Assets/logo1.png'
 import Firebase from "../../Firebase";
-let data = ["1234 5678 1764 5678", "Abhinav YS", "10/25", "123"];
+let data = ["4111 1111 1111 1111", "Abhinav YS", "10/25", "123"];
 
 function loadScript(src) {
   return new Promise((resolve) => {
@@ -48,34 +49,25 @@ export const Address = () => {
 
   const navigate = useNavigate();
 
-  const handleClick = async (e) => {
-    e.preventDefault();
-    const res = await loadScript(
-      "https://checkout.razorpay.com/v1/checkout.js"
-    );
-
+  const handleClick = async () => {
+    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+  
     if (!res) {
       alert("Razorpay SDK failed to load. Are you online?");
       return;
     }
-
-    const data = await fetch("https://meeshodb.herokuapp.com/razorpay", {
-      method: "POST",
-      body: JSON.stringify({
-        amount: localStorage.getItem("total") || 100,
-      }),
-    }).then((t) => t.json());
-    let t = JSON.stringify(localStorage.getItem("total")) || 100;
+    let total = parseInt(localStorage.getItem("total")) || 350.58; // Parsing the total to an integer
+  
     const options = {
-      key: "rzp_test_OnubQmqY8GahSs",
-      currency: data.currency,
-      amount: t * 100,
-      order_id: data.id,
-      name: "Swiggy",
+      key: "rzp_test_pu1H1ubCbvDPui", // Replace with your Razorpay API key
+      amount: total * 100, // Multiplying by 100 to convert to paise
+      currency: "INR",
+      name: "Bizwy",
       description: "Thank you for Ordering",
-      image: "https://images2.imgbox.com/45/f9/i5AetHvK_o.jpg",
+      image: Logo,
       handler: function (response) {
-        alert("Payment request was successfull !!");
+        alert("Payment request was successful!!");
+        navigate("/thankyou"); // Navigate to the thank you page after payment success
       },
       prefill: {
         name: "Abhinav YS",
@@ -83,10 +75,12 @@ export const Address = () => {
         phone_number: "8374772478",
       },
     };
+  
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
-    navigate("/thankyou");
-  };
+};
+
+  
 
   const handleSaveAddress = () => {
     isTime(JSON.parse(localStorage.getItem("foodId")));
@@ -648,7 +642,7 @@ export const Address = () => {
             <div class="wrapper">
               <div class="checkout_wrapper">
                 <div class="product_info">
-                  <img src={Logo} alt="product" />
+                  <img src={Logo1} style={{width:"13rem",height:"13rem",marginTop:"2rem"}} alt="product" />
                   <div class="content_info">
                     <h3>
                       Enjoy your <br />

@@ -9,6 +9,9 @@ import Footer2 from "./Footer2";
 import { cities } from "../../data";
 import { useNavigate } from "react-router-dom";
 import Firebase from "../../Firebase";
+
+import Logo from '../Assets/logo.png'
+
 let id;
 function Card(props) {
   return (
@@ -490,7 +493,7 @@ export function LandingPage() {
         <div className="left">
           <div className="check0">
             <div>
-              <img src="https://d1ye2ocuext585.cloudfront.net/images/s/Swiggy_Logo_9.png" />
+              <img src= {Logo} />
             </div>
 
             <div className="hing">
@@ -636,7 +639,7 @@ export function LandingPage() {
           </h1>
           <p>
             Order from your favorite restaurants & track on the go, with the
-            all-new Swiggy app.
+            all-new Bizwy app.
           </p>
           <div className="do1">
             <a href="https://play.google.com/store/apps/details?id=in.swiggy.android">
@@ -675,11 +678,11 @@ export function LandingPage() {
       <footer>
         <img
           className="footer_logo"
-          src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_284/Logo_f5xzza"
+          src={Logo}
           width="200px"
           height="60px"
         />
-        <p style={{ color: "white", fontSize: "21px" }}>&copy; 2022 Swiggy</p>
+        <p style={{ color: "white", fontSize: "21px" }}>&copy; 2024 BizWy</p>
         <div
           style={{
             width: "200px",

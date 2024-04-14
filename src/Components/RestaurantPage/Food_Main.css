@@ -220,7 +220,7 @@
 }
 
 .control input:checked ~ .control_indicator {
-  background: #fc8019;
+  background: #0473c4;
 }
 .control:hover input:not([disabled]):checked ~ .control_indicator,
 .control input:checked:focus ~ .control_indicator {
@@ -250,7 +250,7 @@
   transform: rotate(45deg);
 }
 .control-checkbox input:disabled ~ .control_indicator:after {
-  border-color: #fc8019;
+  border-color: #0473c4;
 }
 .control-checkbox .control_indicator::before {
   content: "";

@@ -560,7 +560,7 @@ function Food_Main() {
         <div className="nav_food">
           <h2 className="restaurantNum">{foodItems.length} restaurants</h2>
           <div className="action_buttons" onClick={sortingLinks}>
-            <p className="link">Relevance</p>
+           
             <p className="link">Delivery Time</p>
             <p className="link">Rating</p>
             <p className="link">Cost: Low To High</p>

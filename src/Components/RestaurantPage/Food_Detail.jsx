@@ -1,52 +1,58 @@
-import React, { useState, useEffect } from "react";
-import OfferImg from "../Assets/offerImg.jpg";
+import React, { useState, useEffect,useRef  } from "react";
 import Veg from "../Assets/veg.jpg";
 import NonVegan from "../Assets/NonVeg.jpg";
 import "./Food_Detail.css";
 import { Navbar } from "./navbar";
-import Backdrop from "@mui/material/Backdrop";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
 import ScrollToTop from "react-scroll-to-top";
-import { useWindowScroll } from "react-use";
-import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { PreLoader } from "../PreLoader";
-// Styling for the modal
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "fit-content",
-  border: "1px solid lightgray",
-  borderRadius: "7px",
-  boxShadow: 24,
-  p: 2,
-};
-// Functional component Food_Detail
+import { SimpleDialogDemo } from '../popup';
+import Box from '@mui/material/Box';
+import Vegz from "../Assets/Veg.png";
+import Non from "../Assets/non veg.png";
+import { styled } from '@mui/material/styles';
+import Switch from '@mui/material/Switch';
+import Time from '../Assets/time.png'
+import Food from '../Assets/food.png'
+
+
+
+
+
+
+
 export const Food_Detail = () => {
-  const [open, setOpen] = useState(false); // For controlling modal open/close
-  const [data, setData] = useState(null); // For storing data fetched from local storage
-  const [showData, setShowData] = useState([]); // For displaying filtered data
-  const [mdata, setMdata] = useState([]); // For storing data of clicked item in modal
-  const [isClick, setisClick] = useState(false); // For tracking if a filter is clicked
-  const [query, setQuery] = useState(""); // For storing search query
-  const [cart, setCart] = useState([]); // For storing items in cart
-  const [Value, isValue] = useState(""); // For storing the value of clicked filter
-  const [scrolled, setScrolled] = useState(0); // For tracking scroll position
-  const [loading, isLoading] = useState(false); // For tracking loading state
-  // useEffect hook to fetch data from local storage and set loading state
+  const [open, setOpen] = useState(false);
+  const [data, setData] = useState(null);
+  const [showData, setShowData] = useState([]);
+  const [mdata, setMdata] = useState(null);
+  const [isClick, setIsClick] = useState(false);
+  const [query, setQuery] = useState("");
+  const [cart, setCart] = useState([]);
+  const [scrolled, setScrolled] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [showVegItems, setShowVegItems] = useState(true); // Toggle for showing vegetarian items
+  const [showNonVegItems, setShowNonVegItems] = useState(true); // Toggle for showing non-vegetarian items
+  const [isSticky, setIsSticky] = useState(false);
+  const headerRef = useRef(null);
   useEffect(() => {
-    isLoading(true);
-    fakePromise(3000).then(() => isLoading(false));
+    setLoading(true);
+    fakePromise(3000).then(() => setLoading(false));
   }, []);
- // Function to create a fake promise for simulating loading
+
   function fakePromise(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-  // Handling search query change
+
+  const branches = [
+    { email: 'Ameerpet', location: 'Hyderabad' ,distance:'1.7km', time:'27 min'},
+    { email: 'Kukkatpally', location: 'Hyderabad' ,distance:'3.5 km', time:'30 min' },
+    { email: 'Miyapur', location: 'Hyderabad',distance:'5.6 km', time:'35 min' },
+    { email: 'Hitech City', location: 'Hyderabad' ,distance:'8.1 km', time:'45 min'},
+    { email: 'Gacchibowli', location: 'Hyderabad',distance:'9.2 km', time:'55 min' },
+    // Add more branches as needed
+  ];
+
   const handlechange = (e) => {
     setQuery(e.target.value);
     let temp = [];
@@ -56,88 +62,171 @@ export const Food_Detail = () => {
       }
     });
     setShowData(temp);
-    if (showData.length === 0) {
-      setShowData(temp);
+    if (temp.length === 0) {
+      setShowData(data.items); // Show all items if no matches found
     }
   };
 
-  const { x, y } = useWindowScroll();
-  useEffect(() => {
-    const height =
-      document.documentElement.scrollHeight -
-      document.documentElement.clientHeight;
-    setScrolled((y / height) * 100);
-  }, [y]);
-// useEffect hook to fetch data from local storage and update cart state
   useEffect(() => {
     let selectedFood = JSON.parse(localStorage.getItem("foodId"));
     setData(selectedFood);
     setShowData(selectedFood.items);
-    let cart_value = JSON.parse(localStorage.getItem("Cart"));
-
-    setCart([...cart_value]);
+    let cartValue = JSON.parse(localStorage.getItem("Cart"));
+    setCart([...cartValue]);
   }, []);
 
-  // let cart_selected = [];
-  let array = JSON.parse(localStorage.getItem("Cart")) || [];
-// Function to handle opening of modal and adding item to cart
+  const updateCart = (newCart) => {
+    setCart(newCart);
+    localStorage.setItem("Cart", JSON.stringify(newCart));
+  };
+
   const handleOpen = (data) => {
     setMdata(data);
-    // cart_selected.push(data);
-    // setCart([...cart, ...cart_selected]);
     setOpen(true);
     let isFound = false;
-    for (let i = 0; i < array.length; i++) {
-      if (array[i].id === data.id) {
+    let newCart = [...cart];
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === data.id) {
         isFound = true;
       }
     }
     data["q"] = 1;
-    if (!isFound) array.push(data);
-    setCart(array);
-    localStorage.setItem("Cart", JSON.stringify(array));
+    if (!isFound) {
+      newCart.push(data);
+    }
+    updateCart(newCart);
   };
 
-  const veg = () => {
-    let veg_only = [];
-    showData.forEach((e) => {
-      if (e.veg) {
-        veg_only.push(e);
+  const MaterialUISwitch = styled(Switch)(({ theme }) => ({
+    width: 70,
+    height: 34,
+    padding: 7,
+    '& .MuiSwitch-switchBase': {
+      margin: 1,
+      padding: 0,
+      transform: 'translateX(6px)',
+      '&.Mui-checked': {
+        color: '#fff',
+        transform: 'translateX(32px)',
+        '& .MuiSwitch-thumb:before': {
+          // Veg logo for checked state
+          backgroundImage: `url(${Non})`,
+          backgroundSize: '100%'
+        },
+        '& + .MuiSwitch-track': {
+          opacity: 0.75,
+          backgroundColor: 'rgb(139, 0, 0)'
+        },
+      },
+    },
+    '& .MuiSwitch-thumb': {
+      backgroundColor: theme.palette.mode === 'dark' ? '' : '',
+      width: 32,
+      height: 32,
+      '&::before': {
+        content: "''",
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        left: 0,
+        top: 0,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        // Non-veg logo for unchecked state
+        backgroundImage: `url(${Non})`,
+        backgroundSize: '100%'
       }
-    });
-    setShowData(veg_only);
-  };
-  const handleClose = () => setOpen(false);
+    },
+    '& .MuiSwitch-track': {
+      opacity: 2,
+      backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
+      borderRadius: 20 / 2,
+    },
+  }));
 
-  const filterData = (e) => {
-    let paras = document.querySelectorAll(".side_section p");
-    paras.forEach((p) => p.classList.remove("active_filter"));
+  const MaterialUISwitch1 = styled(Switch)(({ theme }) => ({
+    width: 70,
+    height: 34,
+    padding: 7,
+    '& .MuiSwitch-switchBase': {
+      margin: 1,
+      padding: 0,
+      transform: 'translateX(6px)',
+      '&.Mui-checked': {
+        color: '#fff',
+        transform: 'translateX(32px)',
+        '& .MuiSwitch-thumb:before': {
+          // Veg logo for checked state
+          backgroundImage: `url(${Vegz})`,
+          backgroundSize: '80%'
+        },
+        '& + .MuiSwitch-track': {
+          opacity: 0.75,
+          backgroundColor: 'rgb(139, 0, 0)'
+        },
+      },
+    },
+    '& .MuiSwitch-thumb': {
+      backgroundColor: theme.palette.mode === 'dark' ? '' : '',
+      width: 32,
+      height: 32,
+      '&::before': {
+        content: "''",
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        left: 0,
+        top: 0,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        // Non-veg logo for unchecked state
+        backgroundImage: `url(${Vegz})`,
+        backgroundSize: '80%'
+      }
+    },
+    '& .MuiSwitch-track': {
+      opacity: 2,
+      backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
+      borderRadius: 20 / 2,
+    },
+  }));
+  
 
-    e.target.classList.add("active_filter");
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
-    let fil = e.target.innerText.toLowerCase();
-    let newarr = data.items.filter(
-      (item) => item.category.toLowerCase() === fil
-    );
-    setShowData([...newarr]);
-    isValue(e.target.innerText);
-    setisClick(true);
-  };
-
-  const qHandler = (e) => {
-    let id = e.target.parentElement.id;
-    let index = -1;
-    for (let i = 0; i < cart.length; i++) {
-      if (cart[i].id === id) {
-        index = i;
+  const handleScroll = () => {
+    const header = headerRef.current;
+    if (header) {
+      if (window.scrollY > 50) {
+        header.classList.add("sticky");
+      } else {
+        header.classList.remove("sticky");
       }
     }
-    let temp = [...cart];
-    if (e.target.innerHTML === "+") temp[index].q++;
-    else if (temp[index].q !== 1) temp[index].q--;
-    else temp.splice(index, 1);
-    setCart(temp);
-    localStorage.setItem("Cart", JSON.stringify(temp));
+  };
+  const qHandler = (action, id) => {
+    const tempCart = [...cart];
+    const index = tempCart.findIndex((item) => item.id === id);
+    if (index !== -1) {
+      if (action === "increase") {
+        tempCart[index].q++;
+      } else if (action === "decrease" && tempCart[index].q > 1) {
+        tempCart[index].q--;
+      } else if (action === "decrease" && tempCart[index].q === 1) {
+        tempCart.splice(index, 1); // Remove item from cart if quantity is 1 and decrease is clicked
+      }
+      updateCart(tempCart);
+    }
+  };
+
+  const filterData = (filterType) => {
+    // Implement filtering logic based on filterType
+    // For example, you can filter the showData state based on the filterType
   };
 
   return loading ? (
@@ -146,63 +235,46 @@ export const Food_Detail = () => {
     <>
       <div className="scroll-container">
         <div className="indicator" style={{ width: `${scrolled}%` }}></div>
-      </div>{" "}
+      </div>
       <ScrollToTop smooth color="#fc8019" />
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <Box sx={style} className="modal_window">
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              {mdata ? mdata.name : ""}
-              <p className="modal_description">
-                <i class="fa fa-check" aria-hidden="true"></i>&nbsp;Added to
-                your cart
-              </p>
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              <div className="food_img_modal">
-                <img src={mdata ? mdata.img_url : ""} alt="" />
-              </div>
-            </Typography>
-          </Box>
-        </Fade>
-      </Modal>
-      <Navbar />
-      <div className="topbar">
+
+      <Navbar cart={cart} />
+      
+      <Box
+      height={150}
+      width={555}
+      my={3}
+      display="flex"
+      flexDirection="row"
+      alignItems="center"
+      gap={4}
+      p={2}
+      marginLeft="31rem"
+      marginTop={"8rem"}
+      sx={{ border: '2px gba(0,0,0,0.5)', boxShadow:"0 4px 4px 2px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.9)",borderRadius:"1.5rem" }} >
+     
+     <div className="topbar1">
         <div className="topbar_content">
-          <div className="food_img_topbar">
-            <img src={data ? data.img_url : ""} alt="" />
-          </div>
+
           <div className="food_details_section">
-            <h2 className="heading">{data ? data.name : ""} </h2>
-
+          <header className="food_header" ref={headerRef}>
+  <h2>{data ? data.name : ""}</h2>
+</header>
+       
+            
             <p className="cuisines">{data ? data.cuisines.join(",") : ""}</p>
-
-            <p className="hotel_location">
-              Gacchibowli, Hyderabad
-            </p>
+           
+            <p className="hotel_location"> <img src={Food} style={{width:"20px",height:"20px" ,marginTop:"-3rem" , marginLeft:"-2rem"}} />
+            
+            </p><SimpleDialogDemo branches={branches} />
+            
             <div className="food_overview">
               <p className="food_rating">
-                <i class="fas fa-star "></i>
+                <i className="fas fa-star "></i>
                 <b>&nbsp;{data ? data.rating : ""}</b> <br />
                 500+ Ratings
               </p>
-              <p className="food_timing">
-                <b>{data ? data.average_time : ""} MINS</b>
-                <br />
-                Delivery Time
-              </p>
               <p className="food_pricing">
-                {" "}
                 <b>&#8377;{data ? data.average_cost : ""}</b> <br />
                 Cost for two
               </p>
@@ -219,88 +291,98 @@ export const Food_Detail = () => {
                   onChange={(e) => handlechange(e)}
                 />
               </div>
-              <div className="veg_only">
-                <button onClick={veg}>Veg Only</button>
-              </div>
+             <MaterialUISwitch checked={showNonVegItems} onChange={() => setShowNonVegItems(!showNonVegItems)} />
+             <MaterialUISwitch1 checked={showVegItems} onChange={() => setShowVegItems(!showVegItems)} />
             </div>
           </div>
-          <div className="offer-section">
-            <img src={OfferImg} alt="" className="offer_img" />
-          </div>
+      
         </div>
       </div>
+    </Box>
       <div className="food_products">
-        <h4 className="title">{isClick ? Value : "All Food Items"}</h4>
+       
+        <h4 className="title">{isClick ? query : "All Food Items"}</h4>
         <p className="itemCount">
-          {showData.length}
+          {showData.filter(item => (showVegItems && item.veg) || (showNonVegItems && !item.veg)).length}
           &nbsp;ITEMS
         </p>
 
-        {showData
-          ? showData.map((ele, index) => (
-              <div className="food_products_card" key={index}>
-                <div className="card_left_div">
-                  <div className="veg_logo">
-                    {ele.veg ? (
-                      <img src={Veg} alt="" />
-                    ) : (
-                      <img src={NonVegan} alt="" />
-                    )}
-                    {ele.best_seller ? (
-                      <p className="best_seller">
-                        <i class="fas fa-star"></i>&nbsp;BEST SELLER
-                      </p>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                  <h4 className="product_title">{ele.name}</h4>
-                  <p className="product_price">&#8377;{ele.price}</p>
-                  <p className="product_descrip">{ele.description}</p>
-                </div>
-                <div className="card_right_div">
-                  <div className="food_img">
-                    <a href="/food/0/name"><img src={ele.img_url} alt="" /></a>
-                  </div>
-                  <button className="add_cart" onClick={() => handleOpen(ele)}>
-                    ADD
-                  </button>
-                </div>
+        {showData.filter(item => (showVegItems && item.veg) || (showNonVegItems && !item.veg)).map((ele, index) => (
+          <div className="food_products_card" key={index}>
+            <div className="card_left_div">
+              <div className="veg_logo">
+                <img src={ele.veg ? Veg : NonVegan} alt="" />
+                {ele.best_seller && (
+                  <p className="best_seller">
+                    <i className="fas fa-star"></i>&nbsp;BEST SELLER
+                  </p>
+                )}
               </div>
-            ))
-          : ""}
+              <h4 className="product_title">{ele.name}</h4>
+              <p className="product_price">&#8377;{ele.price}</p>
+              <p className="product_descrip">{ele.description}</p>
+
+            </div>
+            <div className="card_right_div">
+              <div className="food_img">
+                <Link to={ele.name}><img src={ele.img_url} alt="" /></Link>
+              </div>
+              {cart.findIndex(item => item.id === ele.id) === -1 ? (
+                <button className="add_cart" onClick={() => handleOpen(ele)}>
+                  ADD
+                </button>
+              ) : (
+                <div className="add-cart-button">
+                  {cart.find(item => item.id === ele.id).q > 0 ? (
+                    <>
+                      <button className="decrease" onClick={() => qHandler('decrease', ele.id)}>
+                        -
+                      </button>
+                      <p className="value">{cart.find(item => item.id === ele.id).q}</p>
+                      <button className="increase" onClick={() => qHandler('increase', ele.id)}>
+                        +
+                      </button>
+                    </>
+                  ) : (
+                    <button className="add_cart" onClick={() => handleOpen(ele)}>
+                      ADD
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
 
         {cart.length ? (
           <div className="item_added">
             <h2 className="header">Cart</h2>
             <p className="no_items">{cart.length}&nbsp;Items</p>
             <div className="items_div_parent">
-              {cart
-                ? cart.map((e) => (
-                    <div className="items_div" id={e.id}>
-                      {e.veg ? (
-                        <img src={Veg} alt="" className="logo_veg_nonVeg" />
-                      ) : (
-                        <img
-                          src={NonVegan}
-                          alt=""
-                          className="logo_veg_nonVeg"
-                        />
-                      )}
-                      <p className="product">{e.name}</p>
-                      <button className="decrease" onClick={qHandler}>
-                        -
+              {cart.map((e) => (
+                <div className="items_div" key={e.id}>
+                  <img src={e.veg ? Veg : NonVegan} alt="" className="logo_veg_nonVeg" />
+                  <p className="product">{e.name}</p>
+                  <div className="quantity">
+                    {e.q > 0 ? (
+                      <>
+                        <button className="decrease" onClick={() => qHandler('decrease', e.id)}>
+                          -
+                        </button>
+                        <p className="value">{e.q}</p>
+                        <button className="increase" onClick={() => qHandler('increase', e.id)}>
+                          +
+                        </button>
+                      </>
+                    ) : (
+                      <button className="add_cart" onClick={() => handleOpen(e)}>
+                        ADD
                       </button>
-                      <p className="value">{e.q}</p>
-                      <button className="increase" onClick={qHandler}>
-                        +
-                      </button>
-                      <p className="price">
-                        &#8377;{(e.price * e.q).toFixed(2)}
-                      </p>
-                    </div>
-                  ))
-                : ""}
+                    )}
+                  </div>
+                  <p className="price">&#8377;{(e.price * e.q).toFixed(2)}</p>
+                </div>
+              ))}
             </div>
             <div className="sub_total">
               <div className="header_1">
@@ -312,61 +394,58 @@ export const Food_Detail = () => {
               <div className="total_price_1">
                 &#8377;
                 {cart
-                  .map((e) => (e = e.price * e.q))
+                  .map((e) => e.price * e.q)
                   .reduce((a, b) => a + b, 0)
                   .toFixed(2)}
               </div>
             </div>
             <Link className="link" to="/payment">
               <button className="checkout">
-                CHECKOUT&nbsp;&nbsp;&nbsp;<i class="fas fa-arrow-right"></i>
+                CHECKOUT&nbsp;&nbsp;&nbsp;<i className="fas fa-arrow-right"></i>
               </button>
             </Link>
           </div>
         ) : (
-          <div className="cart_empty">
-            <h2 className="empty_cart">Cart Empty</h2>
-            <img
-              src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_480/Cart_empty_-_menu_2x_ejjkf2"
-              alt=""
-              className="empty_cart_img"
-            />
-            <p className="empty_cart_para">
-              Good food is always cooking! <br /> Go ahead, order some yummy
-              items from the menu.
-            </p>
+          <div className="cart_empty_container">
+            {/* Empty cart message or component */}
           </div>
         )}
       </div>
-      <div className="side_section">
-        <p className="side_section_filters_recommend" onClick={filterData}>
-          Recommended
-        </p>
-        <p className="side_section_filters" onClick={filterData}>
-          WEDNESDAY EXCLUSIVES
-        </p>
-        <p className="side_section_filters" onClick={filterData}>
-          MATCH DAY SPECIALS (SAVE UPTO 32%)
-        </p>
-        <p className="side_section_filters" onClick={filterData}>
-          STAY HOME SPECIALS
-        </p>
-        <p className="side_section_filters" onClick={filterData}>
-          BIG SAVE COMBOS
-        </p>
-        <p className="side_section_filters" onClick={filterData}>
-          BIRYANI BUCKETS (NEW)
-        </p>
-        <p className="side_section_filters" onClick={filterData}>
-          BURGERS
-        </p>
-        <p className="side_section_filters" onClick={filterData}>
-          SNACKS
-        </p>
-        <p className="side_section_filters" onClick={filterData}>
-          SIDES & BEVERAGES
-        </p>
+      <div className="food_detail_container">
+        <div className="side_section_container">
+          <div className="side_section">
+            <p className="side_section_filters" onClick={() => filterData('Recommended')}>
+              Recommended
+            </p>
+            <p className="side_section_filters" onClick={() => filterData('Wednesday Exclusives')}>
+              Wednesday Exclusives
+            </p>
+            <p className="side_section_filters" onClick={() => filterData('Match Day Specials')}>
+              Match Day Specials 
+            </p>
+            <p className="side_section_filters" onClick={() => filterData('Stay Home Specials')}>
+              Stay Home Specials
+            </p>
+            <p className="side_section_filters" onClick={() => filterData('Big Save Combos')}>
+              Big Save Combos
+            </p>
+            <p className="side_section_filters" onClick={() => filterData('Biryani Buckets (NEW)')}>
+              Biryani Buckets (NEW)
+            </p>
+            <p className="side_section_filters" onClick={() => filterData('Burgers')}>
+              Burgers
+            </p>
+            <p className="side_section_filters" onClick={() => filterData('Snacks')}>
+              Snacks
+            </p>
+            <p className="side_section_filters" onClick={() => filterData('Sides & Bevarages')}>
+              Sides & Bevarages
+            </p>
+          </div>
+        </div>
       </div>
     </>
   );
 };
+
+export default Food_Detail;

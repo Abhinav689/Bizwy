@@ -1,0 +1,90 @@
+.carts{
+    padding: 1rem;
+    margin-top: 1%;
+    margin-left: 55rem;
+    font-size: 1.2rem;
+    border-radius: 1rem;
+    
+}
+.carts:hover{
+    background-color: orange;
+}
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+   
+  }
+  
+  .slider-button {
+    background-color: #ffffff;
+    border: 0.5px solid #000000;
+    padding: 8px 16px;
+    margin: 0 10px;
+    cursor: pointer;
+    margin-top: 10rem;
+  }
+  
+  .slider-image {
+    width: 350px; /* Adjust the width as needed */
+    height: 350px; /* Adjust the height as needed */
+    object-fit: cover; /* Ensure images fill the specified dimensions */
+    margin-top: 10rem;
+  }
+
+
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+.productss{
+
+  text-decoration: none;
+  color: #000000;
+ 
+}
+.add-cart-buttonss{
+  display: flex;
+
+}
+.decreaseee{
+  margin-left: 9rem;
+}
+.increaseee{
+  margin-left: -8rem;
+
+}
+.valueeeee{
+  margin-left: 1.25rem;
+  margin-top: -1rem;
+}
+
+.addcart {
+  text-shadow: 3px 3px 8px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 17px;
+  background: #0473c4;
+  padding: 18px 80px 18px 80px;
+  text-decoration: none;
+  border: none;
+  text-align: center;
+  position: fixed;
+ margin-top: 2rem;
+ margin-left: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  
+}
+.addcarts{
+  margin-left: 10rem;
+}
+
+.addcart:hover {
+  text-decoration: none;
+  box-shadow: rgb(251,203,28) 0px 7px 29px 0px;
+}

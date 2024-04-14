@@ -9,9 +9,9 @@
     z-index: 100;
 }
 .logo{
-    width:70px;
+    width:85px;
     margin-right:80px;
-    margin-left: 150px;
+    margin-left: 175px;
     cursor: pointer;
     transform: all 0.3s ease-in;
 }

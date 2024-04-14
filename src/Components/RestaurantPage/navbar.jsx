@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Logo from "../Assets/swiggy.svg";
+import Logo from "../Assets/logo.png";
 import Arrow from "../Assets/arrow.svg";
 import Cart from "../Assets/cart.png";
 import Search from "../Assets/search.svg";
@@ -410,7 +410,7 @@ export function Navbar() {
               <p className="other">Other</p>
               <div className="location">
                 {location} &nbsp;
-                <img src={Arrow} alt="" className="arrow" />
+                <img src={Arrow} alt="" className="arrow"  />
               </div>
             </div>
             {/* Search */}

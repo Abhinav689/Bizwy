@@ -1,0 +1,129 @@
+/* Hidden Disabled Arrow */
+.hiddenDisabledArrow .glider-contain .glider-next.disabled,
+.hiddenDisabledArrow .glider-contain .glider-prev.disabled {
+  visibility: hidden;
+}
+
+/* Mixin Set Arrow Color */
+.glider-next,
+.glider-prev {
+ color: black;
+}
+
+.glider-next:focus,
+.glider-prev:focus {
+  color: black;
+}
+
+.glider-next:hover,
+.glider-prev:hover {
+  color: magenta;
+}
+
+/* Body */
+body {
+  margin: 0px;
+}
+
+/* App */
+.App {
+  font-family: sans-serif;
+  /* position: relative;
+  min-width: 100%;
+  max-height: none;
+  height: 100%;
+  display: flex; */
+}
+
+/* Photos Gallery */
+.photos-gallery {
+  display: flex;
+  margin-top: -25rem;
+  margin-left: 2rem;
+  flex-direction: column;
+  scrollbar-width: none;
+  position: fixed;
+  width: 40%;
+  height: 50%;
+}
+
+/* Glider */
+.glider {
+  scrollbar-width: none;
+  color: black;
+}
+
+/* Photo Wrapper */
+.photo-wrapper {
+  padding: 0px 30px;
+  margin: 0px auto;
+  height: 1vh;
+  flex-grow: 1;
+  width: calc(100% - 60px);
+}
+
+.photo-wrapper .glider-contain {
+  height: 100%;
+}
+
+.photo-wrapper .glider {
+  height: 100%;
+  color: black;
+}
+
+.photo-wrapper .glider-track {
+  height: 100%;
+  color: black;
+}
+
+.photo-wrapper .slide__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+ 
+  color: black;
+}
+
+.photo-wrapper .slide__content img {
+  height: 100%;
+  width: 100%;
+  object-fit: scale-down;
+}
+
+/* Thumbnails Wrapper */
+.thumbnails-wrapper {
+  padding: 0px 30px;
+  margin: 0px auto;
+  max-width: calc(100% - 60px);
+  height: 136px;
+}
+
+.thumbnails-wrapper .glider-slide + .glider-slide .slide__content {
+  margin-right: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.thumbnails-wrapper .slide__content {
+  display: flex;
+  height: 10vh;
+  max-width: 100%;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  box-shadow: rgba(0, 0, 0, 0.3);
+  margin: 15px 0px;
+  padding: 15px;
+}
+
+.thumbnails-wrapper .slide__content.--current-selected {
+  border: 3px solid magenta;
+}
+
+.thumbnails-wrapper .slide__content img {
+  width: 100%;
+  height: 100%;
+   object-fit: fill;
+}

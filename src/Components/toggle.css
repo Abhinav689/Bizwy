@@ -1,0 +1,39 @@
+/* ToggleButton.css */
+
+.toggle-container {
+    display: inline-block;
+    position: relative;
+  }
+  
+  .toggle-checkbox {
+    display: none;
+  }
+  
+  .toggle-label {
+    display: block;
+    width: 60px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .toggle-label:before {
+    content: '';
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: white;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s;
+  }
+  
+  
+  .toggle-checkbox:checked + .toggle-label:before {
+    transform: translateX(30px) translateY(-50%);
+    background-color: green;
+  }
+  

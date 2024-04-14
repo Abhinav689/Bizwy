@@ -126,7 +126,7 @@ export const PaymentDetails = () => {
               <p className="image_titlename">
                 {JSON.parse(localStorage.getItem("foodId")).name}
               </p>
-              <p className="address">Delta Square, Baramunda, Delta Square</p>
+              <p className="address">Ameerpet Hyderabd</p>
             </div>
           </div>
           <div className="items_div_parent">

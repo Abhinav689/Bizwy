@@ -1,0 +1,90 @@
+.carts{
+    padding: 1rem;
+    margin-top: 1%;
+    margin-left: 55rem;
+    font-size: 1.2rem;
+    border-radius: 1rem;
+    
+}
+.carts:hover{
+    background-color: orange;
+}
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+   
+  }
+  
+  .slider-button {
+    background-color: #ffffff;
+    border: 0.5px solid #000000;
+    padding: 8px 16px;
+    margin: 0 10px;
+    cursor: pointer;
+    margin-top: 10rem;
+  }
+  
+  .slider-image {
+    width: 350px; /* Adjust the width as needed */
+    height: 350px; /* Adjust the height as needed */
+    object-fit: cover; /* Ensure images fill the specified dimensions */
+    margin-top: 10rem;
+  }
+
+
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+.productss{
+
+  text-decoration: none;
+  color: #000000;
+ 
+}
+.product-cards{
+  margin-left: 35rem;
+  margin-top: -23rem;
+  
+}
+.product-cards p{
+  text-align: justify;
+  margin-right: 10rem;
+}
+.product-card h3{
+  padding-left: 17rem;
+}
+.product-card h5{
+    padding-left: 21.5rem;
+  }
+
+.addcart{
+  margin-left: 20rem;
+}
+.addcart {
+  text-shadow: 3px 3px 8px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 17px;
+  background: #0473c4;
+  padding: 18px 80px 18px 80px;
+  text-decoration: none;
+  border: none;
+  text-align: center;
+  position: fixed;
+ margin-top: 1.5rem;
+ margin-left: 15rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  
+}
+
+.addcart:hover {
+  text-decoration: none;
+  box-shadow: rgb(251,203,28) 0px 7px 29px 0px;
+}

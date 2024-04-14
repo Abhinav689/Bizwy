@@ -25,7 +25,7 @@ input::-webkit-inner-spin-button {
     background: transparent;
 }
 #login:hover{
-    color:  #fc8019;
+    color:#0473c4;
 }
 .trip1{
     padding:10px;
@@ -45,8 +45,8 @@ input::-webkit-inner-spin-button {
     padding: 0 2rem;
     letter-spacing: 0;
     color: #fff;
-    background-color: #000;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%);
+    background-color:#0473c4;
+    box-shadow: 0 1px 3px 0 rgb(4,115,196);
     font-size: 16px;
     font-weight: 600;
     height: 40px;
@@ -81,10 +81,11 @@ input::-webkit-inner-spin-button {
     border-left:1px solid #e0e3f1;
     border-bottom:1px solid #BEBFC5;
     border-right:none;
+    color: #000;
 }
 #changing{
     color: #fff;
-    background-color: #fc8019;
+    background-color: #0473c4;
     cursor: pointer;
     display: inline-block;
     text-align: center;
@@ -98,9 +99,9 @@ input::-webkit-inner-spin-button {
     padding: 0;
 }
 input:focus{
-    caret-color: #fc8019;
+    caret-color: #0473c4;
     outline:none;
-    border:1px solid #fc8019;
+    border:1px solid #0473c4;
 }
 .left{
     padding: 25px 25px 25px 75px;
@@ -122,18 +123,18 @@ position: relative;
 }
 .posey{
         position: absolute;
-        top:358px;
-        left:385px;
+        top:249px;
+        left:403px;
         background-color: transparent;
         padding:20px 10px;
         font-weight: lighter;
-        color:#6D707D;
+        color:rgb(4,115,196);
         border:none;
 
 }
 
 .posey:hover{
-    background: rgba(211, 211, 211, 0.945);
+    background: #fbcb1c;
     cursor: pointer;
 }
 .check{
@@ -162,7 +163,7 @@ position: relative;
 
 }
 .two{
-    background-color: #2B1E16;
+    background-color: #0473c4;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -249,9 +250,9 @@ footer .icons img:hover{
     transform: scale(1.2)
 }
 .suggestion{
-    border-bottom: 1px solid #fc8019;
-    border-left: 1px solid #fc8019;
-    border-right: 1px solid #fc8019;
+    border-bottom: 1px solid#0473c4;
+    border-left: 1px solid #0473c4;
+    border-right: 1px solid #0473c4;
     max-height: 320px;
 }
 .city-name{
@@ -263,7 +264,7 @@ footer .icons img:hover{
     cursor: pointer;
 }
 .show:hover{
-    color:#fc8019
+    color:#0473c4;
 }
 
 .left_div h2{
@@ -284,7 +285,7 @@ footer .icons img:hover{
 }
 .link_register a{
     text-decoration: none;
-    color: #fc8019;
+    color: #0473c4;
     font-weight: 600;
     box-shadow: rgba(211, 211, 211, 0.945);
 }
